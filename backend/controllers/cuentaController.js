@@ -7,12 +7,17 @@ const mongoose = require('mongoose');
 const createCuenta = asyncHandler(async (req, res) => {
     
     
-    const { nombreMesa, itemsTotales, montoTotal } = req.body;
+    const { nombreMesa, itemsTotales} = req.body;
 
-    if (!nombreMesa || !itemsTotales || !montoTotal) {
+    if (!nombreMesa || !itemsTotales) {
         res.status(400);
-        throw new Error("Faltan campos obligatorios: mesa, ítems o monto total.");
+        throw new Error("Faltan campos obligatorios: mesa o ítems.");
     }
+
+    //Calcular el monto total de la cuenta automaticamente
+    const montoTotal = itemsTotales.reduce((total, item) => {
+        return total + (item.precio * item.cantidad);
+    }, 0);
 
     const cuenta = await Cuenta.create({
         user: req.user._id, 
@@ -52,7 +57,9 @@ const dividirCuenta = asyncHandler(async (req, res) => {
 
     for (const subCuenta of subcuentas) {
         // 1. Calcular el total de esta subcuenta
-        const totalSubcuenta = subCuenta.items.reduce((acc, item) => acc + item.precio, 0);
+        const totalSubcuenta = subCuenta.items.reduce((acc, item) => {
+            return acc + (item.precio * item.cantidad);
+        }, 0);
         totalDividido += totalSubcuenta;
 
         // 2. Crear la subcuenta (usando el esquema embebido)

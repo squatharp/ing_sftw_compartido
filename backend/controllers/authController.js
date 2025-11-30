@@ -65,10 +65,12 @@ const registerUser = asyncHandler( async(req, res) => {
         throw new Error ("Faltan datos")
     }
 
-    const userExists = await Model.findOne({email})
-    if(userExists){
+    const userExistsInComensal = await Comensal.findOne({email})
+    const userExistsInRestaurantero = await Restaurantero.findOne({email})
+
+    if(userExistsInComensal || userExistsInRestaurantero){
         res.status(400)
-        throw new Error ("Ese usuario ya existe")
+        throw new Error ("Este email ya está registrado")
     } 
 
     // Hash al password (Igual que tu código)

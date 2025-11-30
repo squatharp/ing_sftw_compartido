@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Cuenta = require("../models/cuentaModel"); 
 const Comensal = require("../models/comensalModel"); 
+const mongoose = require('mongoose');
 
 
 const createCuenta = asyncHandler(async (req, res) => {
@@ -14,7 +15,7 @@ const createCuenta = asyncHandler(async (req, res) => {
     }
 
     const cuenta = await Cuenta.create({
-        user: req.user.id, 
+        user: req.user._id, 
         nombreMesa,
         itemsTotales,
         montoTotal,
@@ -112,15 +113,15 @@ const pagarSubcuenta = asyncHandler(async (req, res) => {
 // @access  Private
 // ----------------------------------------------------
 const getHistorialCuentas = asyncHandler(async (req, res) => {
-    // 1. Usar find() para buscar TODAS las cuentas donde el campo 'user'
-    //    coincida con el ID del usuario logueado (req.user.id).
-    const cuentas = await Cuenta.find({ user: req.user.id });
+    
+    // ⚠️ Versión 3 (Combinación): Asumimos que la propiedad es 'id' (sin guion bajo)
+    // y forzamos la conversión a ObjectId, ya que Mongoose no lo hace.
+    const userId = new mongoose.Types.ObjectId(req.user.id); 
 
-    // 2. Devolver la lista (un array) de cuentas
-    // Si no encuentra cuentas, devolverá un array vacío: []
+    const cuentas = await Cuenta.find({ user: userId });
+
     res.status(200).json(cuentas);
 });
-
 
 module.exports = {
     createCuenta,

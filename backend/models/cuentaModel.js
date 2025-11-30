@@ -6,6 +6,12 @@ const subcuentaSchema = require("./subcuentaModel");
 const cuentaSchema = mongoose.Schema({
     // Referencia al Restaurantero que creó la cuenta
 
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true, 
+        ref: 'User', // 💡 Usa 'User' o el nombre exacto de tu colección de usuarios
+    },
+
     nombreMesa: {
         type: String,
         required: [true, "Por favor, especifica el nombre o número de la mesa."],

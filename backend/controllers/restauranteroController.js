@@ -55,11 +55,11 @@ const getPublicMenu = asyncHandler(async (req, res) => {
         throw new Error('Restaurante no encontrado.');
     }
 
-    // 3. 💡 CLAVE: Devolver solo el array 'menu'
+    // 3. Devolver solo el array 'menu'
     res.status(200).json(restaurantero.menu);
 });
 
 module.exports = {
     updateMenu,
-    getPublicMenu, // 💡 Exportar la nueva función
+    getPublicMenu, //Exportar la nueva función
 };

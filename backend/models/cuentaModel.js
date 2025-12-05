@@ -9,7 +9,7 @@ const cuentaSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true, 
-        ref: 'User', // 💡 Usa 'User' o el nombre exacto de tu colección de usuarios
+        ref: 'User', // Usa 'User' o el nombre exacto de tu colección de usuarios
     },
 
     nombreMesa: {

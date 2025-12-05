@@ -3,7 +3,7 @@
 const express = require("express");
 const router = express.Router();
 
-// 💡 Importación CORREGIDA: Usamos el nombre 'createCuenta' que está en el controlador
+// 💡 Usamos el nombre 'createCuenta' que está en el controlador
 const { 
     createCuenta,         
     getCuentaById, 
@@ -29,12 +29,12 @@ router.route('/')
 
 
 // PUT /api/cuentas/dividir/:id (Dividir la cuenta)
-// ⚠️ NOTA: Dejamos dividirCuenta en una ruta separada para claridad.
+// Dejamos dividirCuenta en una ruta separada para claridad.
 router.route('/dividir/:id').put(protect, dividirCuenta);
 
 
 // PUT /api/cuentas/pagar/:subcuentaId (Pagar una subcuenta)
-// ⚠️ NOTA: Dejamos pagarSubcuenta en una ruta separada.
+// Dejamos pagarSubcuenta en una ruta separada.
 router.route('/pagar/:subcuentaId').put(protect, pagarSubcuenta);
 
 

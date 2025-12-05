@@ -121,7 +121,7 @@ const pagarSubcuenta = asyncHandler(async (req, res) => {
 // ----------------------------------------------------
 const getHistorialCuentas = asyncHandler(async (req, res) => {
     
-    // ⚠️ Versión 3 (Combinación): Asumimos que la propiedad es 'id' (sin guion bajo)
+    //(Combinación): Asumimos que la propiedad es 'id' (sin guion bajo)
     // y forzamos la conversión a ObjectId, ya que Mongoose no lo hace.
     const userId = new mongoose.Types.ObjectId(req.user.id); 
 

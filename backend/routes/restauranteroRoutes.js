@@ -8,7 +8,7 @@ const { protect } = require('../middleware/authMiddleware');
 // Ruta para actualizar el menú (Privada, requiere JWT)
 router.route('/menu').put(protect, updateMenu); 
 
-// 💡 NUEVA RUTA: Obtener el menú por ID (Pública, NO requiere protect)
+//  Obtener el menú por ID (Pública, NO requiere protect)
 router.route('/:idRestaurantero/menu').get(getPublicMenu); 
 
 module.exports = router;

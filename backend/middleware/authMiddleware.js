@@ -24,9 +24,8 @@ const protect = asyncHandler(async(req, res, next) => {
                 throw new Error("Acceso no autorizado: Token válido, pero el usuario no existe")
             }
             
-            // 💡 CORRECCIÓN CLAVE: Adjuntamos el tipo DENTRO del objeto user
             req.user = user
-            req.user.type = userType // ✅ CAMBIADO DE req.userType a req.user.type
+            req.user.type = userType 
             
             next()
         }
